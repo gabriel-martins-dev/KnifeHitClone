@@ -13,4 +13,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponPrefab: {fileID: 1549729511502676, guid: ce3afec804fdb6c43a873a2dd3e08a89,
     type: 2}
-  weaponSpawnPosition: {x: 0, y: -4, z: 0}
+  position: {x: 0, y: -3.5}

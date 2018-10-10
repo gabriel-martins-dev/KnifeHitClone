@@ -20,8 +20,6 @@ namespace context.gameplay
 		[SerializeField]
 		private GameControllerSettings _gameControllerSettings;
 		[SerializeField]
-		private WeaponControllerSettings _weaponControllerSettings;
-		[SerializeField]
 		private ScoreUIControllerSettings _scoreUIControllerSettings;
 		#endregion
 
@@ -33,7 +31,7 @@ namespace context.gameplay
 		#region Methods
 		private void Awake () 
 		{
-			_weaponPoolService = new PoolService(this, _weaponControllerSettings.WeaponPrefab);
+			_weaponPoolService = new PoolService(this, _gameControllerSettings.WeaponSettings.WeaponPrefab);
 			_uiPoolService = new PoolService(this, _scoreUIControllerSettings.IconPrefab as GameObject);
 		}
 
@@ -45,10 +43,12 @@ namespace context.gameplay
 		private void Configure () 
 		{
 			IWeaponController weaponController = InterfaceService.GetInterface<IWeaponController>();
+			ITargetController targetController = InterfaceService.GetInterface<ITargetController>();
 			IGameController gameController = InterfaceService.GetInterface<IGameController>();
 			IScoreUIController scoreUIController = InterfaceService.GetInterface<IScoreUIController>();
 
-			weaponController.Initialize(_weaponControllerSettings, _weaponPoolService);
+			weaponController.Initialize(_gameControllerSettings.WeaponSettings, _weaponPoolService);
+			targetController.Initialize(_gameControllerSettings.TargetSettings);
 			scoreUIController.Initialize(_scoreUIControllerSettings, _uiPoolService);
 			gameController.Initialize(_gameControllerSettings);
 		}

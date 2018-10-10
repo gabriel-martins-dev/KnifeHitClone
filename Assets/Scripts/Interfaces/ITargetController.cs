@@ -4,9 +4,8 @@ using UnityEngine;
 
 namespace context.gameplay.interfaces 
 {
-	public interface IWeaponControllerSettings 
+	public interface ITargetController
 	{
-		GameObject WeaponPrefab{ get; }
-		Vector2 SpawnPosition{ get; }
+		void Initialize(ITargetControllerSettings settings);
 	}
 }

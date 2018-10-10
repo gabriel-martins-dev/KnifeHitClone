@@ -12,15 +12,15 @@ namespace context.gameplay.models.settings
 		[SerializeField]
 		private GameObject weaponPrefab;
 		[SerializeField]
-		private Vector3  weaponSpawnPosition;
+		private Vector2  position;
 
 		#region IWeaponControllerSettings
 		public GameObject WeaponPrefab {
 			get { return weaponPrefab; }
 		}
 
-		public Vector3 WeaponSpawnPosition {
-			get { return weaponSpawnPosition; }
+		public Vector2 SpawnPosition {
+			get { return position; }
 		}
 		#endregion
 	}

@@ -10,40 +10,35 @@ namespace context.gameplay.services
 	public class PoolService : IPoolService 
 	{
 		private IContext _context;
-		private Stack<GameObject> _stack;
+		private Stack<GameObject> _poolStack;
+		private List<GameObject> _poolDirty;
 		private GameObject _poolGameObject;
 		private GameObject _poolRoot;
+		private bool _preserveScale;
+		int count = 0;
 
-		public PoolService (IContext context, GameObject poolGameObject) {
+		public PoolService 
+		(
+			IContext context, 
+			GameObject poolGameObject, 
+			bool preserveScale = true 
+		) {
 			_context = context;
 			_poolGameObject = poolGameObject;
-			_stack = new Stack<GameObject>();
+			_preserveScale = preserveScale;
+			_poolStack = new Stack<GameObject>();
+			_poolDirty = new List<GameObject>();
 			_poolRoot = new GameObject("PoolService");
 			_poolRoot.transform.SetParent(context.Container().transform);
 		}
 
-		#region IPoolService
-		public GameObject Pop()
-		{
-			if (_stack.Count == 0) {
-				CreateItem();
-			}
-
-			return _stack.Pop();
-		}
-
-		public void Push(GameObject item) {
-			ResetItem(ref item);
-
-			_stack.Push(item);
-		}
-		#endregion
-
 		private void CreateItem()
 		{
 			GameObject newObject = _context.CreateInstanceOf(_poolGameObject, _poolRoot.transform);
+			newObject.name = newObject.name + count.ToString();
 			ResetItem(ref newObject);
-			_stack.Push(newObject);
+			_poolStack.Push(newObject);
+			count++;
 		}
 
 		private GameObject ResetItem(ref GameObject item)
@@ -53,8 +48,54 @@ namespace context.gameplay.services
 			item.transform.SetParent(_poolRoot.transform);
 			item.transform.localPosition = Vector3.zero;
 			item.transform.localRotation = Quaternion.identity;
+			item.transform.localScale = _preserveScale 
+			? _poolGameObject.transform.localScale : Vector3.one;
 
 			return item;
 		}
+
+		#region IPoolService
+		public GameObject Pop()
+		{
+			if (_poolStack.Count == 0) {
+				CreateItem();
+			}
+
+			GameObject pop = null;
+			
+			for (int i = 0; i < _poolStack.Count; i++) {
+				pop = _poolStack.Pop();
+
+				if(!_poolDirty.Contains(pop)) {
+					break;
+				} 
+				Debug.Log("Dirty contains" + pop.name);
+			}
+
+			_poolDirty.Add(pop);
+			return pop;
+		}
+
+		public void Push(GameObject item) {
+			if(_poolDirty.Contains(item)) {
+				_poolDirty.Remove(item);
+			}
+
+			ResetItem(ref item);
+
+			_poolStack.Push(item);
+		}
+
+		public void Reset()
+		{
+			for (int i = 0; i < _poolDirty.Count; i++) {
+				GameObject item = _poolDirty[i];
+				ResetItem(ref item);
+				_poolStack.Push(item);
+			}
+
+			_poolDirty.Clear();
+		}
+		#endregion
 	}
 }

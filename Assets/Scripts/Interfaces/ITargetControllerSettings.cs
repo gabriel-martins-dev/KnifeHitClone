@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace context.gameplay.interfaces 
 {
-	public interface IWeaponControllerSettings 
+	public interface ITargetControllerSettings
 	{
-		GameObject WeaponPrefab{ get; }
-		Vector2 SpawnPosition{ get; }
+		Vector2 Position { get; }
+		ITargetControllerStageModel[] StageModels { get; }
 	}
 }

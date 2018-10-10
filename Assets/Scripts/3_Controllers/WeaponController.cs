@@ -15,20 +15,26 @@ namespace context.gameplay.controllers
 		private float attackTime;
 
 #region Methods
+		private void Update() 
+		{
+			if(Input.GetKeyDown(KeyCode.Mouse0)) {
+				Attack();
+			}
+		}
+
+		private void OnStartGamePhase() {
+			ShowWeapon();
+		}
+
 		private void ShowWeapon () 
 		{
 			GameObject weapon = weaponsPool.Pop();
-			weapon.transform.position = model.WeaponSpawnPosition;
 			weapon.SetActive(true);
 		}
 		
-		private void ThrowAttack () 
+		private void Attack () 
 		{
-			Messenger.Broadcast(Signals.StartAttack());
-		}
-
-		private void AttackSuccessHandler () {
-			ShowWeapon();
+			Messenger.Broadcast(Signals.ThrowKnive());
 		}
 #endregion
 
@@ -38,13 +44,9 @@ namespace context.gameplay.controllers
 			this.model = settings;
 			this.weaponsPool = weaponsPool;
 
-			Messenger.AddListener(Signals.GameStartPhase(), ShowWeapon);
+			Messenger.AddListener(Signals.TargetReady(), OnStartGamePhase);
 			Messenger.AddListener(Signals.AttackSucces(), ShowWeapon);
-		}
-
-		public void Attack ()
-		{
-
+			Messenger.AddListener(Signals.TargetOut(), weaponsPool.Reset);
 		}
 #endregion
 	}

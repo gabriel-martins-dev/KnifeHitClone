@@ -11,12 +11,23 @@ namespace context.gameplay.models.settings
 	{
 		[SerializeField]
 		private int numberOfTries;
-
-
-#region IGameControllerSettings
+		[SerializeField]
+		private WeaponControllerSettings  weaponSettings;
+		[SerializeField]
+		private TargetControllerSettings  targetSettings;
+	
+		#region IGameControllerSettings
 		public int NumberOfTries {
 			get { return numberOfTries; }
 		}
-#endregion
+
+		public IWeaponControllerSettings WeaponSettings { 
+			get { return weaponSettings; } 
+		}
+
+		public ITargetControllerSettings TargetSettings { 
+			get { return targetSettings; } 
+		}
+		#endregion
 	}
 }

@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Name: GameControllerSetting
   m_EditorClassIdentifier: 
   numberOfTries: 8
+  weaponSettings: {fileID: 11400000, guid: 52efbc3411ba50e47a3e068d64ef8f24, type: 2}
+  targetSettings: {fileID: 11400000, guid: 5c9770bee016aa54e90f72c6561a4e2d, type: 2}

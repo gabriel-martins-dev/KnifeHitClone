@@ -7,7 +7,8 @@ namespace context.gameplay.interfaces
 {
 	public interface IGameController 
 	{
-		int numberOfTries { get; }
+		int NumberOfTries { get; }
+		IGameControllerSettings Settings { get; }
 		void Initialize(IGameControllerSettings settings);
 	}
 }

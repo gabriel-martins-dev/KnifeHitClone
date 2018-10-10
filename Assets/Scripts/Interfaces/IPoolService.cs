@@ -8,5 +8,6 @@ namespace context.gameplay.interfaces
 	{
 		GameObject Pop();
 		void Push(GameObject item);
+		void Reset();
 	}
 }

@@ -21,9 +21,34 @@ namespace context.gameplay.helpers
 			return "GAME_LOST_PHASE";
 		}
 
+		public static string GameResultPhase () 
+		{
+			return "GAME_RESULT_PHASE";
+		}
+
+		public static string TargetReady () 
+		{
+			return "TARGET_READY";
+		}
+
+		public static string TargetOut () 
+		{
+			return "TARGET_OUT";
+		}
+
 		public static string UpdateAttackTries () 
 		{
 			return "UPDATE_ATTACK_TRIES";
+		}
+
+		public static string GameResult () 
+		{
+			return "GAME_RESULT";
+		}
+
+		public static string ThrowKnive () 
+		{
+			return "THROW_KNIVE";
 		}
 
 		public static string StartAttack () 

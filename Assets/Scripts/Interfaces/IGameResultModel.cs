@@ -4,9 +4,10 @@ using UnityEngine;
 
 namespace context.gameplay.interfaces 
 {
-	public interface IWeaponControllerSettings 
+	public interface IGameResultModel
 	{
-		GameObject WeaponPrefab{ get; }
-		Vector2 SpawnPosition{ get; }
+		int Stage { get; }
+		bool HasWon { get; }
 	}
 }
+

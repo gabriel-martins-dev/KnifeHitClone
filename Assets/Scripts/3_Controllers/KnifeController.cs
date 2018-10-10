@@ -3,40 +3,51 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using context.gameplay.helpers;
+using context.gameplay.services;
+using context.gameplay.interfaces;
 
 namespace context.gameplay.controllers 
 {
+	enum KniveState {
+		Sleeping,
+		Attacking,
+		FinishedAttack
+	}	
+
 	public class KnifeController : MonoBehaviour 
 	{
 		[SerializeField]
-		private KnifeView view;
+		private KnifeView _view;
 		[SerializeField]
-		private Rigidbody2D body;
+		private Rigidbody2D _body;
+		private KniveState _state;
+		private IGameControllerSettings _gameControllerSettings;
 		private Tweener move;
-		private Callback attackHandler;
-		private bool isAttacking;
-		private bool isAttackFinished;
 
+		#region Methods
 		private void OnEnable()
 		{
-			view.FadeIn();
+			_state = KniveState.Sleeping;
+			_view.FadeIn();
 
-			Messenger.AddListener(Signals.StartAttack(), attackHandler);
+			Messenger.AddListener(Signals.ThrowKnive(), OnAttack);
+			Messenger.AddListener<bool>(Signals.GameResultPhase(), OnGameResult);
+			transform.position = _gameControllerSettings.WeaponSettings.SpawnPosition;
 		}
 
 		private void OnDisable()
 		{
-			Messenger.RemoveListener(Signals.StartAttack(), attackHandler);
+			Messenger.RemoveListener(Signals.ThrowKnive(), OnAttack);
 		}
 
 		private void Awake()
 		{
-			attackHandler += OnAttack;
+			_gameControllerSettings = InterfaceService.GetInterface<IGameController>().Settings;
 		}
 
 		private void OnCollisionEnter2D(Collision2D other)
 		{
-			if(isAttacking && !isAttackFinished) {
+			if(_state == KniveState.Attacking) {
 				OnAttackFaied();
 			}
 		}
@@ -47,35 +58,47 @@ namespace context.gameplay.controllers
 			OnAttackSucceded();
 		}
 
-		private void OnAttack() {
-			if(isAttacking || isAttackFinished) return;
+		private void OnAttack() 
+		{
+			if(_state != KniveState.Sleeping) {
+				return;
+			}
 
-			Debug.Log("ATTACK!");
+			_state = KniveState.Attacking;
 
-			isAttacking = true;
+			Messenger.Broadcast(Signals.StartAttack());
 	
-			move = body.DOMoveY(1f, 0.1f)
+			move = _body.DOMove(_gameControllerSettings.TargetSettings.Position, 0.1f)
 			.SetEase(Ease.Linear)
 			.OnComplete(() => {
-					isAttacking = false;
-					isAttackFinished = true;
+					_state = KniveState.FinishedAttack;
 					OnAttackSucceded();
 				}
 			);
 		}
 
-		private void OnAttackFaied() {
+		private void OnGameResult(bool result)
+		{
+			if(_state == KniveState.Sleeping 
+			|| _state == KniveState.Attacking) {
+				move.Kill();
+				gameObject.SetActive(false);
+			}
+		}
+
+		private void OnAttackFaied() 
+		{
 			move.Kill();
-			isAttacking = false;
-			isAttackFinished = true;
+			_state = KniveState.FinishedAttack;
 			Messenger.Broadcast(Signals.AttackFailed());
 		}
 
-		private void OnAttackSucceded() {
+		private void OnAttackSucceded() 
+		{
 			move.Kill();
-			isAttacking = false;
-			isAttackFinished = true;
+			_state = KniveState.FinishedAttack;
 			Messenger.Broadcast(Signals.AttackSucces());
 		}
+		#endregion
 	}
 }

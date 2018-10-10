@@ -8,6 +8,5 @@ namespace context.gameplay.interfaces
 	public interface IWeaponController 
 	{
 		void Initialize(IWeaponControllerSettings settings, IPoolService weaponsPool);
-		void Attack();
 	}
 }

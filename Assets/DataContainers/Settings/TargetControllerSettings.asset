@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c30de0a353aee649bc9c67bfbbe9c70, type: 3}
+  m_Name: TargetControllerSettings
+  m_EditorClassIdentifier: 
+  position: {x: 0, y: 2.25}
+  stageModel:
+  - randomDirection: 0
+    velocity: 2
+    velocityRange: 0
+    angle: 360
+    angleRange: 0
+    easeMode: 1
+  - randomDirection: 1
+    velocity: 1.5
+    velocityRange: 1
+    angle: 180
+    angleRange: 0
+    easeMode: 10
