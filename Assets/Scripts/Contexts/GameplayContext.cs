@@ -16,48 +16,60 @@ namespace context.gameplay
 	///
 	public class GameplayContext : MonoBehaviour, IContext 
 	{
-		/* settings */
+		#region Settings
+		[SerializeField]
+		private GameControllerSettings _gameControllerSettings;
 		[SerializeField]
 		private WeaponControllerSettings _weaponControllerSettings;
+		[SerializeField]
+		private ScoreUIControllerSettings _scoreUIControllerSettings;
+		#endregion
 
-		/* interfaces */
-		private IPoolService _poolService;
-		private IWeaponController[] _weaponControllers;
+		#region Interfaces
+		private IPoolService _weaponPoolService;
+		private IPoolService _uiPoolService;
+		#endregion
 
-		void Awake () 
+		#region Methods
+		private void Awake () 
 		{
-			_poolService = new PoolService(this, _weaponControllerSettings.WeaponPrefab);
-			_weaponControllers = InterfaceService.GetInterfaces<IWeaponController>();
+			_weaponPoolService = new PoolService(this, _weaponControllerSettings.WeaponPrefab);
+			_uiPoolService = new PoolService(this, _scoreUIControllerSettings.IconPrefab as GameObject);
 		}
 
-		void Start()
+		private void Start()
 		{
 			Configure();
 		}
 
 		private void Configure () 
 		{
-			for (int i = 0; i < _weaponControllers.Length; i++) {
-					_weaponControllers[i].Initialize(_weaponControllerSettings, _poolService);
+			IWeaponController weaponController = InterfaceService.GetInterface<IWeaponController>();
+			IGameController gameController = InterfaceService.GetInterface<IGameController>();
+			IScoreUIController scoreUIController = InterfaceService.GetInterface<IScoreUIController>();
+
+			weaponController.Initialize(_weaponControllerSettings, _weaponPoolService);
+			scoreUIController.Initialize(_scoreUIControllerSettings, _uiPoolService);
+			gameController.Initialize(_gameControllerSettings);
+		}
+		#endregion
+
+		#region IContext
+		public GameObject CreateInstanceOf(GameObject gameObject, Transform parent = null)
+		{
+			GameObject clone = Instantiate(gameObject);
+			
+			if(parent) {
+				clone.transform.SetParent(parent);
 			}
+
+			return clone;
 		}
 
-#region IContext
-	public GameObject CreateInstanceOf(GameObject gameObject, Transform parent = null) 
-	{
-		GameObject clone = Instantiate(gameObject);
-		
-		if(parent) {
-			clone.transform.SetParent(parent);
+		public GameObject Container() 
+		{
+			return gameObject;
 		}
-
-		return clone;
-	}
-
-	public GameObject Container() 
-	{
-		return gameObject;
-	}
-#endregion
+		#endregion
 	}
 }

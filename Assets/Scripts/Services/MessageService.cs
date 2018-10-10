@@ -23,7 +23,7 @@
 //#define LOG_ALL_MESSAGES
 //#define LOG_ADD_LISTENER
 //#define LOG_BROADCAST_MESSAGE
-#define REQUIRE_LISTENER
+//#define REQUIRE_LISTENER
  
 using System;
 using System.Collections.Generic;
@@ -222,9 +222,6 @@ static internal class Messenger {
 	#region Broadcast
 	//No parameters
     static public void Broadcast(string eventType) {
-#if LOG_ALL_MESSAGES || LOG_BROADCAST_MESSAGE
-		Debug.Log("MESSENGER\t" + System.DateTime.Now.ToString("hh:mm:ss.fff") + "\t\t\tInvoking \t\"" + eventType + "\"");
-#endif
         OnBroadcasting(eventType);
  
         Delegate d;
@@ -234,7 +231,7 @@ static internal class Messenger {
             if (callback != null) {
                 callback();
             } else {
-                throw CreateBroadcastSignatureException(eventType);
+                // throw CreateBroadcastSignatureException(eventType);
             }
         }
     }
@@ -307,6 +304,6 @@ public sealed class MessengerHelper : MonoBehaviour {
  
 	//Clean up eventTable every time a new level loads.
 	public void OnLevelWasLoaded(int unused) {
-		Messenger.Cleanup();
+		// Messenger.Cleanup();
 	}
 }

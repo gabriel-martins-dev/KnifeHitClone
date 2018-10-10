@@ -14,14 +14,14 @@ namespace context.gameplay.models.settings
 		[SerializeField]
 		private Vector3  weaponSpawnPosition;
 
-#region IWeaponControllerSettings
+		#region IWeaponControllerSettings
 		public GameObject WeaponPrefab {
 			get { return weaponPrefab; }
 		}
 
-				public Vector3 WeaponSpawnPosition {
+		public Vector3 WeaponSpawnPosition {
 			get { return weaponSpawnPosition; }
 		}
-#endregion
+		#endregion
 	}
 }

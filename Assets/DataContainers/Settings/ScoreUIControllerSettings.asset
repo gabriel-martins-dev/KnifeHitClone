@@ -8,9 +8,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba4b44d95adf8724c89f8084ea08bace, type: 3}
-  m_Name: WeaponControllerSettings
+  m_Script: {fileID: 11500000, guid: 9ff1c1720b1ec014ba7b5d60c77fe2c1, type: 3}
+  m_Name: ScoreUIControllerSettings
   m_EditorClassIdentifier: 
-  weaponPrefab: {fileID: 1549729511502676, guid: ce3afec804fdb6c43a873a2dd3e08a89,
+  weaponPrefab: {fileID: 1456714850321912, guid: 19cda116866e8ae46861d5d018bfaf8a,
     type: 2}
-  weaponSpawnPosition: {x: 0, y: -4, z: 0}
