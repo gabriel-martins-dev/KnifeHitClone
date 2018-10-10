@@ -21,6 +21,11 @@ namespace context.gameplay.helpers
 			return "GAME_LOST_PHASE";
 		}
 
+		public static string UpdateAttackTries () 
+		{
+			return "UPDATE_ATTACK_TRIES";
+		}
+
 		public static string StartAttack () 
 		{
 			return "START_ATTACK";

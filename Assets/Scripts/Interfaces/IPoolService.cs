@@ -7,5 +7,6 @@ namespace context.gameplay.interfaces
 	public interface IPoolService 
 	{
 		GameObject Pop();
+		void Push(GameObject item);
 	}
 }

@@ -15,13 +15,6 @@ namespace context.gameplay.controllers
 		private float attackTime;
 
 #region Methods
-		private void Update () 
-		{
-			if(Input.GetKeyDown(KeyCode.Mouse0)) {
-				ThrowAttack();
-			}
-		}
-
 		private void ShowWeapon () 
 		{
 			GameObject weapon = weaponsPool.Pop();

@@ -22,8 +22,7 @@ namespace context.gameplay.services
 			_poolRoot.transform.SetParent(context.Container().transform);
 		}
 
-#region IPoolService
-		
+		#region IPoolService
 		public GameObject Pop()
 		{
 			if (_stack.Count == 0) {
@@ -32,7 +31,13 @@ namespace context.gameplay.services
 
 			return _stack.Pop();
 		}
-#endregion
+
+		public void Push(GameObject item) {
+			ResetItem(ref item);
+
+			_stack.Push(item);
+		}
+		#endregion
 
 		private void CreateItem()
 		{
