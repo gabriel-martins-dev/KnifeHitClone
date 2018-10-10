@@ -10,15 +10,15 @@ namespace context.gameplay.models.settings
 	public class GameControllerSettings : ScriptableObject, IGameControllerSettings
 	{
 		[SerializeField]
-		private int numberOfTries;
-		[SerializeField]
 		private WeaponControllerSettings  weaponSettings;
 		[SerializeField]
 		private TargetControllerSettings  targetSettings;
-	
+		[SerializeField]
+		private GameControllerTriesModel[] triesModels;
+
 		#region IGameControllerSettings
-		public int NumberOfTries {
-			get { return numberOfTries; }
+		public IGameControllerTriesModel[] TriesModels {
+			get { return triesModels; }
 		}
 
 		public IWeaponControllerSettings WeaponSettings { 

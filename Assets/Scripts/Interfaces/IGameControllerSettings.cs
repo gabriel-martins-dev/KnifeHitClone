@@ -6,8 +6,7 @@ namespace context.gameplay.interfaces
 {
 	public interface IGameControllerSettings 
 	{
-		int NumberOfTries{ get; }
-
+		IGameControllerTriesModel[] TriesModels { get; }
 		IWeaponControllerSettings WeaponSettings { get; }
 		ITargetControllerSettings TargetSettings { get; }
 	}

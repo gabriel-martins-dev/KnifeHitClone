@@ -19,6 +19,5 @@ public class StageIndicatorUIController : MonoBehaviour
 	private void OnGameResult (IGameResultModel resultModel) 
 	{
 		_view.SetIndicator(resultModel.Stage);
-		Debug.Log("Stage >>> " + resultModel.Stage);
 	}
 }
