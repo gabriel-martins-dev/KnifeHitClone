@@ -21,8 +21,11 @@ namespace context.gameplay.views
 		public void FailedAnimation () {
 			float direction = Random.Range(0f, 1f) > 0.5f ? 1 : -1;
 
-			transform.DOMove(new Vector3(-7.5f * direction, -3.34f, 0), 0.5f);
+			// TODO: should move all values to knife settings
+			transform.DOMove(new Vector3(-7.5f * direction, -3.35f, 0), 0.5f);
 			transform.DORotate(new Vector3(0, 0, 720f), 0.5f, RotateMode.LocalAxisAdd);
+			transform.DORotate(new Vector3(0, 0, 720f), 0.5f, RotateMode.LocalAxisAdd);
+			spriteRenderer.DOFade(0, 0.4f);
 		}
 	}
 }
