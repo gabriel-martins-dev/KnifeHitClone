@@ -9,7 +9,8 @@ using context.gameplay.helpers;
 
 namespace context.gameplay.controllers
 {
-	public class GameController: MonoBehaviour, IGameController {
+	public class GameController: MonoBehaviour, IGameController 
+	{
 		public int NumberOfTries { get; private set; }
 		public int MaxNumberOfTries { get; private set; }
 		private IGameControllerSettings _settings;

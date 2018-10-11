@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IContext
+namespace context.gameplay.interfaces 
 {
-	GameObject CreateInstanceOf(GameObject gameObject, Transform parent = null);
-	GameObject Container();
+	public interface IContext
+	{
+		GameObject CreateInstanceOf(GameObject gameObject, Transform parent = null);
+		GameObject Container();
+	}
 }

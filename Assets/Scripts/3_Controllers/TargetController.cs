@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using DG.Tweening;
+using context.gameplay.views;
 using context.gameplay.helpers;
 using context.gameplay.interfaces;
 
 namespace context.gameplay.controllers 
 {
-	public class TargetController : MonoBehaviour, ITargetController {
+	public class TargetController : MonoBehaviour, ITargetController 
+	{
 		[SerializeField]
 		private TargetView _view;
 		private ITargetControllerSettings _settings;

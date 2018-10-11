@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using context.gameplay.views;
 using context.gameplay.helpers;
 using context.gameplay.services;
 using context.gameplay.interfaces;
