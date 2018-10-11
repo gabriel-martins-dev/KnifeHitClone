@@ -39,8 +39,6 @@ static internal class Messenger {
  
 	//Disable the unused variable warning
 #pragma warning disable 0414
-	//Ensures that the MessengerHelper will be created automatically upon start of the game.
-	static private MessengerHelper messengerHelper = ( new GameObject("MessengerHelper") ).AddComponent< MessengerHelper >();
 #pragma warning restore 0414
  
 	static public Dictionary<string, Delegate> eventTable = new Dictionary<string, Delegate>();
@@ -293,17 +291,4 @@ static internal class Messenger {
         }
     }
 	#endregion
-}
- 
-//This manager will ensure that the messenger's eventTable will be cleaned up upon loading of a new level.
-public sealed class MessengerHelper : MonoBehaviour {
-	void Awake ()
-	{
-		DontDestroyOnLoad(gameObject);	
-	}
- 
-	//Clean up eventTable every time a new level loads.
-	public void OnLevelWasLoaded(int unused) {
-		// Messenger.Cleanup();
-	}
 }

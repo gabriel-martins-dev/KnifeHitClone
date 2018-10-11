@@ -10,7 +10,6 @@ namespace context.gameplay.controllers
 {
 	public class WeaponController : MonoBehaviour, IWeaponController 
 	{
-		private IWeaponControllerSettings model;
 		private IPoolService weaponsPool;
 		private float attackTime;
 
@@ -41,7 +40,6 @@ namespace context.gameplay.controllers
 #region IWeaponController
 		public void Initialize(IWeaponControllerSettings settings, IPoolService weaponsPool) 
 		{
-			this.model = settings;
 			this.weaponsPool = weaponsPool;
 
 			Messenger.AddListener(Signals.TargetReady(), OnStartGamePhase);

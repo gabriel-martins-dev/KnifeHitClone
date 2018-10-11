@@ -9,7 +9,6 @@ namespace context.gameplay.controllers
 {
 	public class ScoreUIController : MonoBehaviour, IScoreUIController 
 	{
-		private IScoreUIControllerSettings settings;
 		private IPoolService poolService;
 		private List<GameObject> icons;
 
@@ -40,7 +39,6 @@ namespace context.gameplay.controllers
 		public void Initialize(IScoreUIControllerSettings settings, IPoolService poolService) 
 		{
 			this.icons = new List<GameObject>();
-			this.settings = settings;
 			this.poolService = poolService;
 
 			Messenger.AddListener<IGameStartModel>(Signals.UpdateAttackTries(), UpdateIcons);
