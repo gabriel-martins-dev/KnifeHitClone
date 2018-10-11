@@ -90,7 +90,11 @@ namespace context.gameplay.controllers
 		private void OnAttackFaied() 
 		{
 			move.Kill();
+
+			_view.FailedAnimation();
+
 			_state = KniveState.FinishedAttack;
+			
 			Messenger.Broadcast(Signals.AttackFailed());
 		}
 
